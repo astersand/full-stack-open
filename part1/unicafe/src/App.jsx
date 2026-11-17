@@ -12,15 +12,36 @@ const Statistics = (props) => {
   }
   return (
     <div>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>neutral {props.bad}</p>
-      <p>all {props.total}</p>
-      <p>average {props.optionsCollection.reduce((acc, value) => acc + value, 0) / props.total}</p>
-      <p>positive {props.optionsCollection.filter(x => x === 1).length / props.total * 100} %</p>
+      <table>
+        <tbody>
+          <StatisticLine text='good' value={props.good} />
+          <StatisticLine text='neutral' value={props.neutral} />
+          <StatisticLine text='bad' value={props.bad} />
+          <StatisticLine text='all' value={props.total} />
+          <StatisticLine text='average' value={props.optionsCollection.reduce((acc, value) => acc + value, 0) / props.total} />
+          <StatisticLine text='positive' value={props.optionsCollection.filter(x => x === 1).length / props.total * 100} />
+        </tbody>
+      </table>
     </div>
   )
 }
+
+const StatisticLine = (props) => {
+  if (props.text === 'positive') {
+    return (
+      <tr>
+        <td style={{ columnWidth: 60 + 'px' }}>{props.text}</td>
+        <td style={{ columnWidth: 80 + 'px' }}>{props.value} %</td>
+      </tr>
+    )
+  }
+  return (
+    <tr>
+      <td style={{ columnWidth: 60 + 'px' }}>{props.text}</td>
+      <td style={{ columnWidth: 80 + 'px' }}>{props.value}</td>
+    </tr>
+  )
+};
 
 const App = () => {
   // save clicks of each button to its own state 
